@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Student Portal Login</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: url('LoginBackground.png') no-repeat center center fixed;
+      background-size: cover;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      margin: 0;
+    }
+    .login-box {
+      background: rgba(255, 255, 255, 0.9);
+      padding: 30px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.3);
+      width: 320px;
+      text-align: center;
+    }
+    .avatar {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      margin-bottom: 15px;
+    }
+    input {
+      width: 90%;
+      padding: 10px;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    button {
+      width: 95%;
+      padding: 10px;
+      background: #0d6efd;
+      color: white;
+      border-radius: 5px;
+      cursor: pointer;
+      border: none;
+    }
+    button:hover {
+      background: #0b5ed7;
+    }
+    #message {
+      margin-top: 15px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+<div class="login-box">
+  <img class="avatar" src="https://img.lovepik.com/png/20231031/User-avatar-login-interface-abstract-blue-icon-profile-picture-round_430107_wh860.png" alt="Avatar">
+  <h2>Login</h2>
+  <form id="loginForm">
+    <input type="text" id="username" placeholder="Enter Username" required>
+    <input type="password" id="password" placeholder="Enter Password" required minlength="5">
+
+    <!-- Stay logged in toggle -->
+    <label style="display:flex;align-items:center;justify-content:center;margin:10px 0;">
+      <input type="checkbox" id="stayLoggedIn" style="margin-right:8px;">
+      Stay logged in
+    </label>
+    <small>Your session will stay active on this device.</small>
+
+    <!-- Buttons -->
+    <button type="submit">Login</button>
+    <button type="button" onclick="window.location.href='index.html'" style="background:#6c757d;margin-top:10px;">Cancel</button>
+
+    <!-- Forgot link -->
+    <p style="margin-top:15px;">
+      <a href="forgot.html">Forgot username / password?</a>
+    </p>
+
+    <p id="message"></p>
+  </form>
+</div>
+
+<script>
+  document.getElementById("loginForm").addEventListener("submit", function(e){
+    e.preventDefault();
+    const user = document.getElementById("username").value.trim();
+    const pass = document.getElementById("password").value.trim();
+    const stayLoggedIn = document.getElementById("stayLoggedIn").checked;
+    const message = document.getElementById("message");
+
+    if(user.toLowerCase() === "student" && pass === "12345"){
+      message.textContent = "Access granted";
+      message.style.color = "green";
+
+      // Example: save login state if toggle is checked
+      if(stayLoggedIn){
+        localStorage.setItem("loggedInUser", user);
+      }
+
+      window.location.href = "dashboard.html";
+    } else {
+      message.textContent = "Access denied";
+      message.style.color = "red";
+    }
+  });
+</script>
+
+</body>
+</html>
